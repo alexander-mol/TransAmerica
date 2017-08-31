@@ -1,5 +1,5 @@
 Runtime improvements
-- Make is_done a lot faster by keeping a graph that has edges only where there is track and search that graph;
+x Make is_done a lot faster by keeping a graph that has edges only where there is track and search that graph;
     far fewer options (SAVES ~50% t.r.t.)
 - When updating the target order (update_target_order) save the paths, then we don't need to do additional searches
     afterwards when the shortest path has been found (we already calculated it for the current state) - SAVES ~10% t.r.t.
@@ -18,3 +18,11 @@ Strategy optimization improvements
     - If current path length + heuristic remaining > fast initial estimate, then stop processing that path
     - heuristic remaining could be the straight line distance to a 'farthest' objective
     - Difficulty estimate: ~ 5 branches at each node, fast est ~ 25, farthest objective ~ 15, window ~ 10
+
+PROBLEMS
+- While deciding which track to place, player should already place the track that he will surely place - impacts
+    decision about where to lay further track.
+
+LOG
+- 10k games seed = 1: Scores: {'A': 19750, 'B': 21140, 'C': 23313}.
+- 10k games: Scores: {'A': 20026, 'B': 21497, 'C': 23053}.

@@ -4,10 +4,17 @@ import copy
 
 class Game:
 
-    def __init__(self, player_list, board):
+    def __init__(self, player_list, board, board_track_only):
         self.player_list = player_list
         self.board = board
+        self.board_track_only = board_track_only
         self.round_counter = 0
+
+    def lay_track(self, edge_list):
+        for edge in edge_list:
+            self.board[edge[0]][edge[1]]['weight'] = 0
+            self.board_track_only.add_edge(edge[0], edge[1])
+
 
     def get_remaining_distance(self, home_node, objective_nodes):
         # THE IDEA HERE: get the closest remaining objective, lay track to it, get the next closest, lay track to it,

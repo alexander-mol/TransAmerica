@@ -23,10 +23,11 @@ class BasePlayer:
 
     def decide_starting_node(self, game):
         self.home_node = random.choice(self.objectives)
+        self.update_target_order(game) # TEMPORARY
         return self.home_node
 
     def decide_edge_placement(self, game):
-        self.update_target_order(game)
+        # self.update_target_order(game)
         track_to_place = []
         track_weight = 0
         for target in self.target_order:
@@ -36,6 +37,7 @@ class BasePlayer:
                 if track_weight + edge_weights[i] <= 2:
                     track_to_place.append(edge)
                     track_weight += edge_weights[i]
+                    game.lay_track([edge])
                 else:
                     break
             if track_weight == 2:
@@ -51,7 +53,7 @@ class BasePlayer:
 
     def is_done(self, game):
         for objective in self.remaining_objectives:
-            if nx.astar_path_length(game.board, self.home_node, objective) == 0:
+            if nx.has_path(game.board_track_only, self.home_node, objective):
                 self.remaining_objectives.remove(objective)
         if len(self.remaining_objectives) == 0:
             return True

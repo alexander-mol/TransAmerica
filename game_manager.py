@@ -16,7 +16,9 @@ class GameManager:
         self.deck_manager = DeckManager()
         with open('game-board.p', 'rb') as f:
             self.board = pickle.load(f)
-        self.game = Game(self.player_list, self.board)
+        with open('board_nodes_only.p', 'rb') as f:
+            self.board_track_only = pickle.load(f)
+        self.game = Game(self.player_list, self.board, self.board_track_only)
         logging.basicConfig(filename='log.txt',
                             filemode='w',
                             # format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
@@ -45,9 +47,7 @@ class GameManager:
                     break
                 edges_to_place = player.decide_edge_placement(self.game)
                 self.logger.debug(f'Player {player}: round {self.game.round_counter}, places edges {edges_to_place}.')
-                for edge in edges_to_place:
-                    # print(edge)
-                    self.board[edge[0]][edge[1]]['weight'] = 0
+                # self.game.lay_track(edges_to_place)
                 if player.is_done(self.game):
                     self.logger.info(f'Player {player}: round {self.game.round_counter}, finished all objectives!')
                     done = True
@@ -67,14 +67,6 @@ class GameManager:
             scores_dict[player.id] = self.game.get_remaining_distance(player.home_node, player.objectives)
         return scores_dict
 
-    # Below this line is all for drawing images
-    def get_track_edges(self):
-        output = []
-        for edge in self.board.edges():
-            if self.board[edge[0]][edge[1]]['weight'] == 0:
-                output.append(edge)
-        return output
-
     def plot(self, title=None):
         # TODO CAN OPIMIZE THIS SO THAT ONLY DIFFS ARE ADDED TO THE IMAGE - much faster
         plt.figure(figsize=(7.44, 4.3))
@@ -82,7 +74,7 @@ class GameManager:
         for edge in self.board.edges():
             if self.board[edge[0]][edge[1]]['weight'] == 2:
                 self.draw_edge(edge, dots - 3, 'y')
-        edges = self.get_track_edges()
+        edges = self.board_track_only.edges()
         for edge in edges:
             self.draw_edge(edge, dots, 'r')
         nodes = self.board.nodes()
@@ -105,7 +97,7 @@ class GameManager:
 if __name__ == '__main__':
     start_time = time.time()
     scores_dict = {'A': 0, 'B': 0, 'C': 0}
-    for _ in range(100):
+    for _ in range(10000):
         gm = GameManager()
         scores = gm.play()
         for key in scores_dict:

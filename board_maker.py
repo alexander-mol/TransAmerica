@@ -68,6 +68,11 @@ remove_nodes = [
     (19, 8)
 ]
 board.remove_nodes_from(remove_nodes)
+board_nodes_only = board.copy()
+board_nodes_only.remove_edges_from(board.edges())
+
+with open('board_nodes_only.p', 'wb') as f:
+    pickle.dump(board_nodes_only, f)
 
 # terrain
 double_edges = [
