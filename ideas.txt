@@ -1,0 +1,20 @@
+Runtime improvements
+- Make is_done a lot faster by keeping a graph that has edges only where there is track and search that graph;
+    far fewer options (SAVES ~50% t.r.t.)
+- When updating the target order (update_target_order) save the paths, then we don't need to do additional searches
+    afterwards when the shortest path has been found (we already calculated it for the current state) - SAVES ~10% t.r.t.
+    Additionally, non_zero_edges can be limited to stop after 2 non_zero_edges have been found (as option) - DOESN'T IMPROVE MUCH
+
+
+Game mechanics
+- Vary starting player ... (Going first gives advantage now, but going last might give advantage due to knowing other's
+    starting locations)
+
+
+Strategy optimization improvements
+- Calculate difficulty of card set at start - compare to actual result: fitness is score diff... think about it... COULD BE VERY USEFUL
+- For ultimate Steiner calculation (minimum spanning tree) do expanding bfs around a starting node,
+    - Stop when creating a loop (cannot be optimal)
+    - If current path length + heuristic remaining > fast initial estimate, then stop processing that path
+    - heuristic remaining could be the straight line distance to a 'farthest' objective
+    - Difficulty estimate: ~ 5 branches at each node, fast est ~ 25, farthest objective ~ 15, window ~ 10
