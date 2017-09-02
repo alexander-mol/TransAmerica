@@ -42,6 +42,22 @@ class Game:
             self.board[edge[0]][edge[1]]['weight'] = added_track_weights[edge]
         return remaining_distance
 
+    def assess_objective_difficulty(self, objective_nodes):
+        # find node with nearest neighbours (using distance estimates), select as home, then use get_remaining_distance
+        return self.get_remaining_distance(self.find_central_node(objective_nodes), objective_nodes)
+
+    def find_central_node(self, nodes):
+        neighbour_dist = []
+        for node1 in nodes:
+            cum_dist = 0
+            for node2 in nodes:
+                if node1 is node2:
+                    continue
+                cum_dist += self.dist_est(node1, node2)
+            neighbour_dist.append((node1, cum_dist))
+        neighbour_dist.sort(key=lambda x: x[1])
+        return neighbour_dist[0][0]
+
     @staticmethod
     def dist_est(a, b):
         dx = a[0] - b[0]

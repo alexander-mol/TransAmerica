@@ -1,4 +1,5 @@
 from player import BasePlayer
+from advanced_player import AdvancedPlayer, LeftPlayer, RightPlayer, NorthPlayer, SouthPlayer
 from deck_manager import DeckManager
 from game import Game
 import pickle
@@ -12,7 +13,7 @@ class GameManager:
 
     def __init__(self, player_list=None):
         if player_list is None:
-            self.player_list = [BasePlayer('A'), BasePlayer('B'), BasePlayer('C')]
+            self.player_list = [BasePlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')]
         self.deck_manager = DeckManager()
         with open('game-board.p', 'rb') as f:
             self.board = pickle.load(f)
@@ -27,6 +28,46 @@ class GameManager:
                             level=logging.ERROR)
         self.logger = logging.getLogger(__name__)
 
+    def play_repeated(self, player_list, num_games):
+        start_time = time.time()
+        self.reset(player_list)
+        print(f'Evaluating {num_games} runs for player types: {[type(p) for p in self.player_list]}.')
+        scores_dict = {}
+        # track_location_count = {}
+        for edge in self.board.edges():
+            track_location_count[edge] = 0
+        for player in player_list:
+            scores_dict[player.id] = 0
+        for _ in range(num_games):
+            self.reset(player_list)
+            scores = self.play()
+            for key in scores_dict:
+                scores_dict[key] += scores[key]
+            # for edge in self.board_track_only.edges():
+            #     track_location_count[edge] += 1
+        print(f'Scores: {scores_dict}.')
+        fitness = 1 - (scores_dict['A'] / min([x[1] for x in list(scores_dict.items()) if x[0] is not 'A']))
+        print(f'Fitness of A: {fitness}.')
+        print(f'Total runtime: {round(time.time() - start_time, 3)}s, '
+              f'time per game: {round((time.time() - start_time)/num_games, 4)}s.')
+        # track_location_count = list(track_location_count.items())
+        # track_location_count.sort(key=lambda x: x[1], reverse=True)
+        # with open('track_location_count.p', 'wb') as f:
+        #     pickle.dump(track_location_count, f)
+        # print(track_location_count)
+        print('---------------------------------------------------------')
+
+    def reset(self, player_list):
+        for player in player_list:
+            player.reset()
+        self.player_list = player_list
+        self.deck_manager = DeckManager()
+        with open('game-board.p', 'rb') as f:
+            self.board = pickle.load(f)
+        with open('board_nodes_only.p', 'rb') as f:
+            self.board_track_only = pickle.load(f)
+        self.game = Game(self.player_list, self.board, self.board_track_only)
+
     def deal_objective_cards(self):
         for player in self.player_list:
             player.set_objectives(self.deck_manager.draw_a_starting_hand())
@@ -34,7 +75,8 @@ class GameManager:
     def play(self):
         self.deal_objective_cards()
         for player in self.player_list:  # TODO MAKE THIS HAVE VARIABLE STARTING PLAYER...
-            player.decide_starting_node(self.game)
+            starting_node = player.decide_starting_node(self.game)
+            self.logger.info(f'Player {player} chooses starting node: {starting_node}.')
         # main game loop
         done = False
         while not done:
@@ -95,12 +137,17 @@ class GameManager:
 
 
 if __name__ == '__main__':
-    start_time = time.time()
-    scores_dict = {'A': 0, 'B': 0, 'C': 0}
-    for _ in range(10000):
-        gm = GameManager()
-        scores = gm.play()
-        for key in scores_dict:
-            scores_dict[key] += scores[key]
-    print(f'Scores: {scores_dict}.')
-    print(time.time() - start_time)
+    # start_time = time.time()
+    # scores_dict = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
+    # for _ in range(10000):
+    #     gm = GameManager()
+    #     scores = gm.play()
+    #     for key in scores_dict:
+    #         scores_dict[key] += scores[key]
+    # print(f'Scores: {scores_dict}.')
+    # fitness = 1 - (scores_dict['A'] / min([x[1] for x in list(scores_dict.items()) if x[0] is not 'A']))
+    # print(f'Fitness: {fitness}.')
+    # print(time.time() - start_time)
+    gm = GameManager()
+    player_list = [BasePlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')]
+    gm.play_repeated(player_list, 10000)

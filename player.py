@@ -1,6 +1,5 @@
 import random
 import networkx as nx
-import copy
 import logging
 
 class BasePlayer:
@@ -23,7 +22,7 @@ class BasePlayer:
 
     def decide_starting_node(self, game):
         self.home_node = random.choice(self.objectives)
-        self.update_target_order(game) # TEMPORARY
+        self.update_target_order(game)
         return self.home_node
 
     def decide_edge_placement(self, game):
@@ -58,6 +57,13 @@ class BasePlayer:
         if len(self.remaining_objectives) == 0:
             return True
         return False
+
+    def reset(self):
+        self.objectives = []
+        self.remaining_objectives = []
+        self.verbose_objectives = {}
+        self.home_node = None
+        self.target_order = None
 
     def __str__(self):
         return self.id

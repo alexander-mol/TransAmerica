@@ -23,6 +23,180 @@ PROBLEMS
 - While deciding which track to place, player should already place the track that he will surely place - impacts
     decision about where to lay further track.
 
-LOG
-- 10k games seed = 1: Scores: {'A': 19750, 'B': 21140, 'C': 23313}.
-- 10k games: Scores: {'A': 20026, 'B': 21497, 'C': 23053}.
+STRATEGY LOG
+- 10k games, always start on 'central' objective, Scores: {'A': 18261, 'B': 22214, 'C': 23341}. 0.178
+- 10k games, always play left, Scores: {'A': 19285, 'B': 22553, 'C': 23561}. 0.145
+- 10k games: Scores: {'A': 20026, 'B': 21497, 'C': 23053}. Fitness: 0.068
+- 10k games seed = 1: Scores: {'A': 19750, 'B': 21140, 'C': 23313}. Fitness: 0.066
+
+
+
+Evaluating 100000 runs for player types: [<class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 222532, 'B': 238404, 'C': 247961, 'D': 259521}.
+Fitness of A: 0.06657606415999728.
+Total runtime: 4296.024s, time per game: 0.043s.
+---------------------------------------------------------
+Evaluating 100000 runs for player types: [<class 'advanced_player.AdvancedPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 223006, 'B': 236921, 'C': 249054, 'D': 259412}.
+Fitness of A: 0.05873265772135017.
+Total runtime: 4301.236s, time per game: 0.043s.
+---------------------------------------------------------
+Evaluating 100000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 223160, 'B': 236896, 'C': 248351, 'D': 257744}.
+Fitness of A: 0.05798325003377014.
+Total runtime: 4303.682s, time per game: 0.043s.
+---------------------------------------------------------
+Evaluating 100000 runs for player types: [<class 'advanced_player.RightPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 223454, 'B': 236882, 'C': 248614, 'D': 259665}.
+Fitness of A: 0.05668645148217255.
+Total runtime: 4297.032s, time per game: 0.043s.
+---------------------------------------------------------
+Evaluating 100000 runs for player types: [<class 'advanced_player.NorthPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 223222, 'B': 237969, 'C': 249585, 'D': 259512}.
+Fitness of A: 0.06197025663006528.
+Total runtime: 4302.766s, time per game: 0.043s.
+---------------------------------------------------------
+Evaluating 100000 runs for player types: [<class 'advanced_player.SouthPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 224073, 'B': 236293, 'C': 248892, 'D': 259087}.
+Fitness of A: 0.05171545496481067.
+Total runtime: 4293.159s, time per game: 0.0429s.
+---------------------------------------------------------
+Evaluating 100000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>].
+Scores: {'A': 224716, 'B': 236331, 'C': 248671, 'D': 259239}.
+Fitness of A: 0.04914717070549357.
+Total runtime: 4298.054s, time per game: 0.043s.
+
+
+/Users/student/anaconda/bin/python "/Users/student/Desktop/Local Files/Projects/TransAmerica/game_manager.py"
+Evaluating 10000 runs for player types: [<class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 22296, 'B': 23931, 'C': 25165, 'D': 25672}.
+Fitness of A: 0.068321424094271.
+Total runtime: 424.068s, time per game: 0.0424s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.AdvancedPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 20498, 'B': 24198, 'C': 24854, 'D': 26137}.
+Fitness of A: 0.15290519877675846.
+Total runtime: 418.283s, time per game: 0.0418s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 22262, 'B': 23936, 'C': 25074, 'D': 26124}.
+Fitness of A: 0.06993649732620322.
+Total runtime: 418.649s, time per game: 0.0419s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.RightPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 24239, 'B': 23335, 'C': 24361, 'D': 25166}.
+Fitness of A: -0.038740089993571925.
+Total runtime: 420.62s, time per game: 0.0421s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.NorthPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 20728, 'B': 23652, 'C': 25148, 'D': 25407}.
+Fitness of A: 0.12362590901403692.
+Total runtime: 415.309s, time per game: 0.0415s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.SouthPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 23546, 'B': 23786, 'C': 25327, 'D': 25905}.
+Fitness of A: 0.010089968889262613.
+Total runtime: 415.162s, time per game: 0.0415s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>].
+Scores: {'A': 18481, 'B': 30013, 'C': 29786, 'D': 29474}.
+Fitness of A: 0.37297278957725455.
+Total runtime: 399.055s, time per game: 0.0399s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>].
+Scores: {'A': 21275, 'B': 20751, 'C': 21048, 'D': 21392}.
+Fitness of A: -0.02525179509421238.
+Total runtime: 425.892s, time per game: 0.0426s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.LeftPlayer'>].
+Scores: {'A': 26522, 'B': 26627, 'C': 26261, 'D': 23705}.
+Fitness of A: -0.11883568867327576.
+Total runtime: 403.184s, time per game: 0.0403s.
+---------------------------------------------------------
+
+/Users/student/anaconda/bin/python "/Users/student/Desktop/Local Files/Projects/TransAmerica/game_manager.py"
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>].
+Scores: {'A': 18938, 'B': 30263, 'C': 29736, 'D': 28975}.
+Fitness of A: 0.3464020707506471.
+Total runtime: 398.377s, time per game: 0.0398s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.RightPlayer'>, <class 'advanced_player.LeftPlayer'>, <class 'advanced_player.LeftPlayer'>, <class 'advanced_player.LeftPlayer'>].
+Scores: {'A': 21208, 'B': 25044, 'C': 25139, 'D': 25009}.
+Fitness of A: 0.15198528529729294.
+Total runtime: 416.584s, time per game: 0.0417s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.NorthPlayer'>, <class 'advanced_player.SouthPlayer'>, <class 'advanced_player.SouthPlayer'>, <class 'advanced_player.SouthPlayer'>].
+Scores: {'A': 18891, 'B': 26704, 'C': 27201, 'D': 27314}.
+Fitness of A: 0.2925778909526663.
+Total runtime: 408.929s, time per game: 0.0409s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.SouthPlayer'>, <class 'advanced_player.NorthPlayer'>, <class 'advanced_player.NorthPlayer'>, <class 'advanced_player.NorthPlayer'>].
+Scores: {'A': 21315, 'B': 23620, 'C': 25018, 'D': 25214}.
+Fitness of A: 0.0975867908552075.
+Total runtime: 409.473s, time per game: 0.0409s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>].
+Scores: {'A': 20630, 'B': 22782, 'C': 30404, 'D': 29901}.
+Fitness of A: 0.094460539022035.
+Total runtime: 395.957s, time per game: 0.0396s.
+---------------------------------------------------------
+
+Process finished with exit code 0
+
+/Users/student/anaconda/bin/python "/Users/student/Desktop/Local Files/Projects/TransAmerica/game_manager.py"
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.AdvancedPlayer'>].
+Scores: {'A': 22798, 'B': 22555, 'C': 23776, 'D': 24890}.
+Fitness of A: -0.010773664375969938.
+Total runtime: 432.11s, time per game: 0.0432s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.RightPlayer'>, <class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.AdvancedPlayer'>].
+Scores: {'A': 23942, 'B': 22519, 'C': 23623, 'D': 24575}.
+Fitness of A: -0.06319108308539456.
+Total runtime: 420.027s, time per game: 0.042s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.RightPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 24101, 'B': 22934, 'C': 24103, 'D': 25176}.
+Fitness of A: -0.05088514868753813.
+Total runtime: 413.698s, time per game: 0.0414s.
+---------------------------------------------------------
+
+Process finished with exit code 0
+
+/Users/student/anaconda/bin/python "/Users/student/Desktop/Local Files/Projects/TransAmerica/game_manager.py"
+Evaluating 10000 runs for player types: [<class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>, <class 'advanced_player.RightPlayer'>].
+Scores: {'A': 18319, 'B': 23949, 'C': 24010, 'D': 23830}.
+Fitness of A: 0.23126311372219888.
+Total runtime: 413.837s, time per game: 0.0414s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.AdvancedPlayer'>, <class 'advanced_player.AdvancedPlayer'>].
+Scores: {'A': 23021, 'B': 22411, 'C': 23846, 'D': 25196}.
+Fitness of A: -0.027218776493686203.
+Total runtime: 411.278s, time per game: 0.0411s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'A': 21872, 'B': 24135, 'C': 25161, 'D': 25854}.
+Fitness of A: 0.09376424280091156.
+Total runtime: 408.186s, time per game: 0.0408s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.NorthPlayer'>, <class 'advanced_player.NorthPlayer'>, <class 'advanced_player.NorthPlayer'>].
+Scores: {'A': 20541, 'B': 22917, 'C': 24021, 'D': 24652}.
+Fitness of A: 0.10367849194920797.
+Total runtime: 439.012s, time per game: 0.0439s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.LeftPlayer'>, <class 'advanced_player.SouthPlayer'>, <class 'advanced_player.SouthPlayer'>, <class 'advanced_player.SouthPlayer'>].
+Scores: {'A': 21848, 'B': 25978, 'C': 26763, 'D': 27861}.
+Fitness of A: 0.1589806759565786.
+Total runtime: 412.519s, time per game: 0.0413s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.NorthPlayer'>, <class 'advanced_player.SouthPlayer'>, <class 'advanced_player.SouthPlayer'>, <class 'advanced_player.SouthPlayer'>].
+Scores: {'A': 18566, 'B': 26306, 'C': 26967, 'D': 27272}.
+Fitness of A: 0.29422945335664863.
+Total runtime: 406.683s, time per game: 0.0407s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'advanced_player.SouthPlayer'>, <class 'advanced_player.NorthPlayer'>, <class 'advanced_player.NorthPlayer'>, <class 'advanced_player.NorthPlayer'>].
+Scores: {'A': 21211, 'B': 23837, 'C': 24436, 'D': 25710}.
+Fitness of A: 0.11016486974031969.
+Total runtime: 408.184s, time per game: 0.0408s.
+---------------------------------------------------------
+
+Process finished with exit code 0
