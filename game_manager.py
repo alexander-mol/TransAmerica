@@ -34,8 +34,8 @@ class GameManager:
         print(f'Evaluating {num_games} runs for player types: {[type(p) for p in self.player_list]}.')
         scores_dict = {}
         # track_location_count = {}
-        for edge in self.board.edges():
-            track_location_count[edge] = 0
+        # for edge in self.board.edges():
+        #     track_location_count[edge] = 0
         for player in player_list:
             scores_dict[player.id] = 0
         for _ in range(num_games):
@@ -150,4 +150,4 @@ if __name__ == '__main__':
     # print(time.time() - start_time)
     gm = GameManager()
     player_list = [BasePlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')]
-    gm.play_repeated(player_list, 10000)
+    gm.play_repeated(player_list, 100)

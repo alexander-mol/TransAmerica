@@ -6,7 +6,7 @@ with open('track_location_count.p', 'rb') as f:
     edge_frequency = pickle.load(f)
 
 edges_to_plot = [item[0] for item in edge_frequency if item[1] >= 2500]
-save_path = 'images/frequent_edges_(>25%).png'
+save_path = 'images/frequent_edges_(25%+).png'
 
 with open('game-board.p', 'rb') as f:
     board = pickle.load(f)
