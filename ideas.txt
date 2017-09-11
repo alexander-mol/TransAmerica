@@ -200,3 +200,34 @@ Total runtime: 408.184s, time per game: 0.0408s.
 ---------------------------------------------------------
 
 Process finished with exit code 0
+
+NOTE: FITNESS IS CALCULATED FOR LAST PLAYER
+C:\Users\alexa\Anaconda3\python.exe C:/Users/alexa/PycharmProjects/TransAmerica/game_manager.py
+Evaluating 10000 runs for player types: [<class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>].
+Scores: {'B': 22321, 'C': 23669, 'D': 24977, 'A': 25834}.
+Fitness of A: -0.1573854218000985.
+Total runtime: 215.548s, time per game: 0.0216s.
+---------------------------------------------------------
+
+Evaluating 10000 runs for player types: [<class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'advanced_player.FarAwayPlayer'>].
+Scores: {'B': 22330, 'C': 24133, 'D': 25758, 'A': 26443}.
+Fitness of A: -0.18419167039856688.
+Total runtime: 218.293s, time per game: 0.0218s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'advanced_player.CenterPlayer'>].
+Scores: {'B': 22709, 'C': 23877, 'D': 25155, 'A': 24132}.
+Fitness of A: -0.06266238055396545.
+Total runtime: 220.103s, time per game: 0.022s.
+---------------------------------------------------------
+
+C:\Users\alexa\Anaconda3\python.exe C:/Users/alexa/PycharmProjects/TransAmerica/game_manager.py
+Evaluating 10000 runs for player types: [<class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'advanced_player.LeftPlayer'>].
+Scores: {'B': 22357, 'C': 23513, 'D': 25117, 'A': 25992}.
+Fitness of A: -0.16258889833161883.
+Total runtime: 217.751s, time per game: 0.0218s.
+---------------------------------------------------------
+Evaluating 10000 runs for player types: [<class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'player.BasePlayer'>, <class 'advanced_player.RightPlayer'>].
+Scores: {'B': 22127, 'C': 23646, 'D': 24727, 'A': 27124}.
+Fitness of A: -0.22583269308989018.
+Total runtime: 213.671s, time per game: 0.0214s.
+---------------------------------------------------------

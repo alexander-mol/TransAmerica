@@ -3,7 +3,9 @@ import random
 
 class DeckManager:
 
-    def __init__(self):
+    def __init__(self, seed=None):
+        if seed is not None:
+            random.seed(seed)
         self.decks = [
             [
                 ('SEATTLE', (0, 12)),
