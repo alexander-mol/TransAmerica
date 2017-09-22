@@ -1,3 +1,14 @@
+Findings
+- With perfect knowledge it is possible to have a ~0.58 fitness playing last (i.e. knowing what cards people have, score
+    gain at ~40% the rate of best competitor)
+- The best starting locations against randomly starting competitors (and playing last) seem to be cities on the West or
+    Northern 'coast'. Best cities in order: Seattle, Buffalo, Portland, Cincinnati, Los Angeles, Medford, San Diego,
+    Sacremento, San Francisco, Chicago, Duluth, Bismark, Minneapolis, New Orleans ... Worst: Washington, Dallas, Boston
+    Santa Fe, Salt Lake City.
+- MonteCarlo player is best seen so far, fitness in different player order positions: 1st/4 = 0.230, 4th/4 = 0.129
+    (taking into account other player's starting positions, 50k runs), or 0.043 if not (pure random cards for opponents,
+    100k runs)
+
 Runtime improvements
 x Make is_done a lot faster by keeping a graph that has edges only where there is track and search that graph;
     far fewer options (SAVES ~50% t.r.t.)

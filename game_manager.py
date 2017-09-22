@@ -1,5 +1,6 @@
 from player import BasePlayer
-from advanced_player import FarAwayPlayer, LeftPlayer, RightPlayer, NorthPlayer, SouthPlayer, CenterPlayer
+from advanced_player import FarAwayPlayer, LeftPlayer, RightPlayer, NorthPlayer, SouthPlayer, CenterPlayer,\
+    LearningPlayer, OptimalPlayer, EmpiricalTopLeftPlayer, MonteCarloPlayer
 from deck_manager import DeckManager
 from game import Game
 import pickle
@@ -11,15 +12,20 @@ import numpy as np
 
 class GameManager:
 
-    def __init__(self, player_list=None):
+    def __init__(self, player_list=None, deck_manager=None):
         if player_list is None:
             self.player_list = [BasePlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')]
-        self.deck_manager = DeckManager()
+        else:
+            self.player_list = player_list
+        if deck_manager is None:
+            self.deck_manager = DeckManager()
+        else:
+            self.deck_manager = deck_manager
         with open('game-board.p', 'rb') as f:
             self.board = pickle.load(f)
         with open('board_nodes_only.p', 'rb') as f:
             self.board_track_only = pickle.load(f)
-        self.game = Game(self.player_list, self.board, self.board_track_only)
+        self.game = Game(self.player_list, self.board, self.board_track_only, self.deck_manager)
         logging.basicConfig(filename='log.txt',
                             filemode='w',
                             # format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
@@ -45,8 +51,8 @@ class GameManager:
                 scores_dict[key] += scores[key]
             # for edge in self.board_track_only.edges():
             #     track_location_count[edge] += 1
-        fitness = 1 - (scores_dict['A'] / min([x[1] for x in list(scores_dict.items()) if x[0] is not 'A']))
-        return fitness
+        fitness = 1 - (scores_dict['A'] / (min([x[1] for x in list(scores_dict.items()) if x[0] is not 'A']) + 0.00001))
+        return scores_dict, fitness
         # print(f'Scores: {scores_dict}.')
         # print(f'Fitness of A: {fitness}.')
         # print(f'Total runtime: {round(time.time() - start_time, 3)}s, '
@@ -58,32 +64,45 @@ class GameManager:
         # # print(track_location_count)
         # print('---------------------------------------------------------')
 
-    def reset(self, player_list, seed=None):
-        for player in player_list:
-            player.reset()
+    def reset(self, player_list=None, seed=None, deck_manager=None, reset_players=True):
+        if player_list is None:
+            player_list = self.player_list
         self.player_list = player_list
-        self.deck_manager = DeckManager(seed)
+        if reset_players:
+            for player in player_list:
+                player.reset()
+        if deck_manager is None:
+            self.deck_manager = DeckManager(seed)
+        else:
+            self.deck_manager = deck_manager
         with open('game-board.p', 'rb') as f:
             self.board = pickle.load(f)
         with open('board_nodes_only.p', 'rb') as f:
             self.board_track_only = pickle.load(f)
-        self.game = Game(self.player_list, self.board, self.board_track_only)
+        self.game = Game(self.player_list, self.board, self.board_track_only, self.deck_manager)
+
+    def play(self):
+        self.deal_objective_cards()
+        self.choose_starting_positions()
+        scores_dict = self.main_game_loop()
+        return scores_dict
 
     def deal_objective_cards(self):
         for player in self.player_list:
             player.set_objectives(self.deck_manager.draw_a_starting_hand())
 
-    def play(self):
-        self.deal_objective_cards()
+    def choose_starting_positions(self):
         for player in self.player_list:  # TODO MAKE THIS HAVE VARIABLE STARTING PLAYER...
             starting_node = player.decide_starting_node(self.game)
-            self.logger.info(f'Player {player} chooses starting node: {starting_node}.')
-        # main game loop
+            self.logger.info(f'Player {player} chooses starting node: {starting_node}, '
+                             f'{player.verbose_objectives[starting_node]}.')
+
+    def main_game_loop(self):
         done = False
         while not done:
             for player in self.player_list:  # TODO MAKE THIS HAVE VARIABLE STARTING PLAYER
-                self.logger.debug(f'Player {player}: round {self.game.round_counter}, remaining objectives:'
-                                  f' {[player.verbose_objectives[x] for x in player.remaining_objectives]}.')
+                # self.logger.debug(f'Player {player}: round {self.game.round_counter}, remaining objectives:'
+                #                   f' {[player.verbose_objectives[x] for x in player.remaining_objectives]}.')
                 if player.is_done(self.game):
                     self.logger.info(f'Player {player}: round {self.game.round_counter}, finished all objectives!')
                     done = True
@@ -149,8 +168,21 @@ if __name__ == '__main__':
     # fitness = 1 - (scores_dict['A'] / min([x[1] for x in list(scores_dict.items()) if x[0] is not 'A']))
     # print(f'Fitness: {fitness}.')
     # print(time.time() - start_time)
-    gm = GameManager()
-    player_list = [BasePlayer('B'), BasePlayer('C'), BasePlayer('D'), LeftPlayer('A')]
-    gm.play_repeated(player_list, 10000)
-    player_list = [BasePlayer('B'), BasePlayer('C'), BasePlayer('D'), RightPlayer('A')]
-    gm.play_repeated(player_list, 10000)
+    # from trainer import fitness_evaluator
+    # with open('pop_cache_0911.p', 'rb') as f:
+    #     population = pickle.load(f)
+    # array = population[0].array
+    # player_list = [BasePlayer('B'), BasePlayer('C'), BasePlayer('D'), EmpiricalTopLeftPlayer('A')]
+    # player_list = [BasePlayer('B'), BasePlayer('C'), BasePlayer('D'), MonteCarloPlayer('A')]
+    player_list = [MonteCarloPlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')]
+    # player_lists = [
+    #     [EmpiricalTopLeftPlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')],
+    #     [BasePlayer('B'), BasePlayer('C'), BasePlayer('D'), EmpiricalTopLeftPlayer('A')],
+    #     [CenterPlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')],
+    #     [BasePlayer('B'), BasePlayer('C'), BasePlayer('D'), CenterPlayer('A')],
+    #     [NorthPlayer('A'), BasePlayer('B'), BasePlayer('C'), BasePlayer('D')],
+    #     [BasePlayer('B'), BasePlayer('C'), BasePlayer('D'), NorthPlayer('A')]
+    # ]
+    # for player_list in player_lists:
+    gm = GameManager(player_list)
+    print(gm.play_repeated(player_list, 30000))

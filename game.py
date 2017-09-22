@@ -4,10 +4,11 @@ import copy
 
 class Game:
 
-    def __init__(self, player_list, board, board_track_only):
+    def __init__(self, player_list, board, board_track_only, deck_manager):
         self.player_list = player_list
         self.board = board
         self.board_track_only = board_track_only
+        self.deck_manager = deck_manager
         self.round_counter = 0
 
     def lay_track(self, edge_list):

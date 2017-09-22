@@ -65,5 +65,28 @@ class DeckManager:
             hand.append(deck.pop())
         return hand
 
+    def complete_hand(self, current_hand):
+        reference_decks = DeckManager().decks
+        new_hand = []
+        for i, deck in enumerate(reference_decks):
+            has_color = False
+            for card in deck:
+                if card[1] in current_hand:
+                    has_color = True
+                    new_hand.append(card[1])
+                    break
+            if not has_color:
+                new_hand.append(self.decks[i].pop()[1])
+        return new_hand
+
+    def remove_card_from_decks(self, card_to_remove):
+        if type(card_to_remove) is tuple:
+            for i, deck in enumerate(self.decks):
+                for card in deck:
+                    if card[1] == card_to_remove:
+                        self.decks[i].remove(card)
+        else:
+            print('Remove card from deck not implemented for representations other than tuple.')
+
     def reset(self):
         self.__init__()
